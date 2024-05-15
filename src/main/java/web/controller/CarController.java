@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.service.CarServiceImp;
 
-
-
 @Controller
 public class CarController {
+    private final CarServiceImp carServiceImp;
+
     @Autowired
-    private CarServiceImp carServiceImp;
+    public CarController(CarServiceImp carServiceImp) {
+        this.carServiceImp = carServiceImp;
+    }
+
     @GetMapping(value = "/cars")
     public String getCars(@RequestParam(value = "count", required = false) Integer count, Model model) {
         model.addAttribute("listCars", carServiceImp.getCars(count));
